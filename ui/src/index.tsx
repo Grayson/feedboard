@@ -8,9 +8,11 @@ import {
 import "./styles.css";
 import RootPage from './routes/root';
 import Error from './error';
+import Login from './routes/login';
 
 const router = createBrowserRouter([
-	{ path: "/", element: <RootPage />, errorElement: <Error /> }
+	{ path: "/", element: <RootPage />, errorElement: <Error /> },
+	{ path: "/login", element: <Login /> },
 ])
 
 var mountNode = document.getElementById("app");

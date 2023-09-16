@@ -4,7 +4,7 @@ import { Form } from 'react-router-dom'
 export default function Login() {
 	return (
 		<div id="login">
-			<Form action="/user/42" method='post'>
+			<Form action="/user/42" method='get' /* to be post */>
 				<p>
 					<label htmlFor='username'>Username: </label>
 					<input type='text' name='username' />

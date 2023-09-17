@@ -56,7 +56,7 @@ function LoggingInMessage() {
 		setTimeout(() => { 
 			setUserIsLoggedIn(dispatch)()
 		}, 5000)
-	})
+	}, [username])
 	return (
 		<div id="logging-in">
 			<h2>Welcome, {username}</h2>
@@ -66,7 +66,6 @@ function LoggingInMessage() {
 }
 
 function onFormSubmit(dispatch: Dispatcher, submit: SubmitFunction) {
-	console.log('submitting form')
 	setUserIsLoggingIn(dispatch)()
 
 	return (ev: React.FormEvent<Element>) => {

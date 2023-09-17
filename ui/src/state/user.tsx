@@ -26,7 +26,8 @@ export class UserLoggingInStateChangedAction implements ReducerAction {
 	constructor(value: LoginState) { this.value = value }
 }
 export class UserUsernameChangedAction implements ReducerAction {
-	value: string = ''
+	value: string
+	constructor(value: string) { this.value = value }
 }
 
 const [
@@ -64,13 +65,12 @@ export function setUserIsLoggedIn(dispatch: Dispatcher) {
 
 export function setUserUsername(dispatch: Dispatcher) {
 	return (value: string) => {
-		dispatch({ value })
+		dispatch(new UserUsernameChangedAction(value))
 	}
 }
 
 function reducer(state: User, action: ReducerAction): User {
 	if (action instanceof UserLoggingInStateChangedAction) {
-		console.log('changing state')
 		return { ...state, loginState: action.value }
 	}
 	else if (action instanceof UserUsernameChangedAction) {

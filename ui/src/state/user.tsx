@@ -63,6 +63,12 @@ export function setUserIsLoggedIn(dispatch: Dispatcher) {
 	}
 }
 
+export function setUserIsLoggedOut(dispatch: Dispatcher) {
+	return () => {
+		dispatch(new UserLoggingInStateChangedAction(LoginState.NotLoggedIn))
+	}
+}
+
 export function setUserUsername(dispatch: Dispatcher) {
 	return (value: string) => {
 		dispatch(new UserUsernameChangedAction(value))

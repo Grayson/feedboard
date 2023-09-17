@@ -55,7 +55,7 @@ function LoggingInMessage() {
 		// Mimic sending a web request
 		setTimeout(() => { 
 			setUserIsLoggedIn(dispatch)()
-		}, 5000)
+		}, 1000)
 	}, [username])
 	return (
 		<div id="logging-in">

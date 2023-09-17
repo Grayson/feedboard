@@ -8,7 +8,7 @@ import {
 import "./styles.css";
 import RootPage from './routes/root';
 import Error from './error';
-import Login from './routes/login';
+import Login, { action as loginAction } from './routes/login';
 import User, { loader as userLoader } from './routes/user';
 import App from './components/app';
 
@@ -19,11 +19,15 @@ const router = createBrowserRouter([
 		errorElement: <Error />,
 		children: [
 			{ element: <RootPage />, index: true },
-			{ path: 'login', element: <Login /> },
+			{
+				path: 'login',
+				element: <Login />,
+				action: loginAction as any,
+			},
 			{ 
 				path: 'user/:userId',
 				element: <User />,
-				loader: userLoader as any
+				loader: userLoader as any,
 			},
 		]
 	},

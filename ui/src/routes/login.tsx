@@ -1,10 +1,35 @@
 import * as React from 'react'
-import { Form } from 'react-router-dom'
+import { Form, Navigate, SubmitFunction, useActionData, useSubmit } from 'react-router-dom'
+import { Dispatcher, LoginState, setUserIsLoggedIn, setUserIsLoggingIn, setUserUsername, useUser, useUserDispatch } from '../state/user'
+import { SubmitTarget } from 'react-router-dom/dist/dom'
+import { useEffect } from 'react'
+
+export async function action({ request }: { request: Request }) {
+	const data = await request.formData()
+	const username = data.get('username')
+
+	return { username }
+}
 
 export default function Login() {
+	const { loginState } = useUser()
+
+	if (loginState == LoginState.NotLoggedIn) {
+		return <LoginForm />
+	}
+	else if (loginState == LoginState.LoggedIn) {
+		return <Navigate to='/' replace={true} />
+	}
+	return <LoggingInMessage />
+}
+
+function LoginForm() {
+	const submit = useSubmit()
+	const dispatch = useUserDispatch()
+
 	return (
 		<div id="login">
-			<Form action="/user/42" method='get' /* to be post */>
+			<Form method='post' onSubmit={() => onFormSubmit(dispatch, submit)}>
 				<p>
 					<label htmlFor='username'>Username: </label>
 					<input type='text' name='username' />
@@ -16,5 +41,35 @@ export default function Login() {
 				<button type="submit">Login</button>
 			</Form>
 		</div>
+	)	
+}
+
+function LoggingInMessage() {
+	const dispatch = useUserDispatch()
+
+	const { username } = useActionData() as any || {}
+	
+	useEffect(() => {
+		setUserUsername(dispatch)(username)
+	
+		// Mimic sending a web request
+		setTimeout(() => { 
+			setUserIsLoggedIn(dispatch)()
+		}, 5000)
+	})
+	return (
+		<div id="logging-in">
+			<h2>Welcome, {username}</h2>
+			<p>Completing login...</p>
+		</div>
 	)
+}
+
+function onFormSubmit(dispatch: Dispatcher, submit: SubmitFunction) {
+	console.log('submitting form')
+	setUserIsLoggingIn(dispatch)()
+
+	return (ev: React.FormEvent<Element>) => {
+		submit(ev.currentTarget as SubmitTarget)
+	}
 }

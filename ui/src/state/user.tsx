@@ -1,17 +1,33 @@
 import * as React from 'react'
-import { useReducer } from "react";
+import { useContext, useReducer } from "react";
 import { createContexts } from '../util/react-utils';
+
+export enum LoginState {
+	NotLoggedIn,
+	LoggingIn,
+	LoggedIn,
+	LoggingOut,
+}
 
 export interface User {
 	name: string
+	username: string
 	id: number
+	loginState: LoginState
 }
 
-interface ReducerAction {
-	action: string
-}
+const initialUser = {
+	loginState: LoginState.NotLoggedIn
+} as User
 
-const initialUser = {} as User
+interface ReducerAction {}
+export class UserLoggingInStateChangedAction implements ReducerAction {
+	value: LoginState
+	constructor(value: LoginState) { this.value = value }
+}
+export class UserUsernameChangedAction implements ReducerAction {
+	value: string = ''
+}
 
 const [
 	UserContext,
@@ -29,6 +45,36 @@ export function UserProvider({children} : { children: React.ReactNode }) {
 	)
 }
 
+export function useUser() { return useContext(UserContext) }
+export function useUserDispatch() { return useContext(UserDispatchContext) }
+
+export type Dispatcher = React.Dispatch<ReducerAction>
+
+export function setUserIsLoggingIn(dispatch: Dispatcher) {
+	return () => {
+		dispatch(new UserLoggingInStateChangedAction(LoginState.LoggingIn))
+	}
+}
+
+export function setUserIsLoggedIn(dispatch: Dispatcher) {
+	return () => {
+		dispatch(new UserLoggingInStateChangedAction(LoginState.LoggedIn))
+	}
+}
+
+export function setUserUsername(dispatch: Dispatcher) {
+	return (value: string) => {
+		dispatch({ value })
+	}
+}
+
 function reducer(state: User, action: ReducerAction): User {
-	return initialUser
+	if (action instanceof UserLoggingInStateChangedAction) {
+		console.log('changing state')
+		return { ...state, loginState: action.value }
+	}
+	else if (action instanceof UserUsernameChangedAction) {
+		return { ...state, username: action.value }
+	}
+	return state
 }

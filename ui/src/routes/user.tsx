@@ -3,6 +3,7 @@ import { useLoaderData } from 'react-router-dom'
 import { dataRepo } from '../components/datarepo'
 import UserProfile from '../data/userprofile'
 import Feedlist from '../components/feedlist'
+import FriendList from '../components/friendlist'
 
 type Params = {
 	username: string
@@ -23,6 +24,9 @@ export default function User() {
 			
 			<h2>Following feeds</h2>
 			<Feedlist feeds={profile.feeds} />
+
+			<h2>Following</h2>
+			<FriendList friends={profile.following} />
 		</div>
 	)
 }

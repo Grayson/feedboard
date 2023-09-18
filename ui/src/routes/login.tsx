@@ -3,6 +3,7 @@ import { Form, Navigate, SubmitFunction, useActionData, useSubmit } from 'react-
 import { Dispatcher, LoginState, setUserInformation, setUserIsLoggedIn, setUserIsLoggingIn, useUser, useUserDispatch } from '../state/user'
 import { SubmitTarget } from 'react-router-dom/dist/dom'
 import { useEffect } from 'react'
+import { useDataRepo } from '../components/datarepo'
 
 export async function action({ request }: { request: Request }) {
 	const data = await request.formData()
@@ -46,22 +47,16 @@ function LoginForm() {
 
 function LoggingInMessage() {
 	const dispatch = useUserDispatch()
+	const dataRepo = useDataRepo()
 
-	const { username } = useActionData() as any || {}
+	const { username, password } = useActionData() as any || {}
 	
 	useEffect(() => {
-		// Mimic sending a web request to fetch user information
-		// const user = await post(username, password)...
-
-		setTimeout(() => { 
-			setUserInformation(dispatch)({
-				email: "test@email.com",
-				id: "42",
-				name: "Test User",
-				username: username,
-			})
+		(async () => {
+			const userdata = await dataRepo.authenticateUser({username, password})
+			setUserInformation(dispatch)(userdata)
 			setUserIsLoggedIn(dispatch)()
-		}, 1000)
+		})()
 	}, [username])
 	return (
 		<div id="logging-in">

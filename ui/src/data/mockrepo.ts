@@ -20,10 +20,23 @@ const defaultList = [
 	{ title: "Six Colors", html: "https://sixcolors.com/", feed: "https://feedpress.me/sixcolors?type=xml", rank: 13},
 ]
 
+const demoUserData = {
+	email: "test@email.com",
+	id: "42",
+	name: "Test User",
+	username: "testuser",
+}
+
 export default class MockDataRepo implements DataRepo {
 	fetchRecommendationsForUsername(username: string): Promise<UserRecommendation[]> {
 		return new Promise(resolve => {
 			setTimeout(() => resolve(defaultList), Math.random() * 1000)
+		})
+	}
+	
+	authenticateUser({username, password}: { username: string, password: string }): Promise<UserData> {
+		return new Promise(resolve => {
+			setTimeout(() => resolve(demoUserData), Math.random() * 1000)
 		})
 	}
 }

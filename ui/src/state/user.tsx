@@ -17,9 +17,15 @@ export interface User {
 	username: string
 }
 
-const initialUser = {
-	loginState: LoginState.NotLoggedIn
-} as User
+const UserLocalStorageKey = 'user'
+
+const initialUser = (() => {
+	const userJson = localStorage.getItem(UserLocalStorageKey)
+	if (!userJson) {
+		return 	{ loginState: LoginState.NotLoggedIn } as User
+	}
+	return JSON.parse(userJson)
+})()
 
 interface ReducerAction {}
 
@@ -83,12 +89,14 @@ export function setUserIsLoggedIn(dispatch: Dispatcher) {
 
 export function setUserIsLoggedOut(dispatch: Dispatcher) {
 	return () => {
+		localStorage.removeItem(UserLocalStorageKey)
 		dispatch(new UserLoggingInStateChangedAction(LoginState.NotLoggedIn))
 	}
 }
 
 export function setUserInformation(dispatch: Dispatcher) {
 	return (props: BasicUserInfoProps) => {
+		localStorage.setItem(UserLocalStorageKey, JSON.stringify(props))
 		dispatch(new UserInformationChanged(props))
 	}
 }

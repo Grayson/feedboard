@@ -26,6 +26,7 @@ interface UserRecommendation {
 	feed: string
 	rank: number
 	// source? from (object)?
+	// could be new!  Add timestamp?
 }
 
 export default function Recommended({forUser}: {forUser: string}) {

@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 import DataRepo from '../data/repo';
 import MockDataRepo from '../data/mockrepo';
 
-const dataRepo = new MockDataRepo();
+export const dataRepo = new MockDataRepo(); // Exported for use in loaders
 
 const DataRepoContext = createContext<DataRepo>(dataRepo)
 

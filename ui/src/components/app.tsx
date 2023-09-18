@@ -5,7 +5,7 @@ import DataRepoProvider from './datarepo'
 
 export default function App() {
 	return <>
-		<h1>Feedboard</h1>
+		<h1><a href='/'>Feedboard</a></h1>
 		<UserProvider>
 			<DataRepoProvider>
 				<Outlet />

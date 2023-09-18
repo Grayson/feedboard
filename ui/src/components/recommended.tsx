@@ -4,6 +4,7 @@ import { useDataRepo } from './datarepo'
 
 export default function Recommended({forUser: username}: {forUser: string}) {
 	const [recommendations, setRecommendations] = useState<UserRecommendation[] | undefined>(undefined)
+			: <ul>{ sorted.map((r, idx) => <Recommendation recommendation={r} key={idx} />) }</ul>
 	const dataRepo = useDataRepo()
 
 	useEffect(() => {

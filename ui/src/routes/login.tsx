@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Form, Navigate, SubmitFunction, useActionData, useSubmit } from 'react-router-dom'
-import { Dispatcher, LoginState, setUserIsLoggedIn, setUserIsLoggingIn, setUserUsername, useUser, useUserDispatch } from '../state/user'
+import { Dispatcher, LoginState, setUserInformation, setUserIsLoggedIn, setUserIsLoggingIn, useUser, useUserDispatch } from '../state/user'
 import { SubmitTarget } from 'react-router-dom/dist/dom'
 import { useEffect } from 'react'
 
@@ -50,10 +50,16 @@ function LoggingInMessage() {
 	const { username } = useActionData() as any || {}
 	
 	useEffect(() => {
-		setUserUsername(dispatch)(username)
-	
-		// Mimic sending a web request
+		// Mimic sending a web request to fetch user information
+		// const user = await post(username, password)...
+
 		setTimeout(() => { 
+			setUserInformation(dispatch)({
+				email: "test@email.com",
+				id: "42",
+				name: "Test User",
+				username: username,
+			})
 			setUserIsLoggedIn(dispatch)()
 		}, 1000)
 	}, [username])

@@ -25,7 +25,7 @@ const router = createBrowserRouter([
 				action: loginAction as any,
 			},
 			{ 
-				path: 'user/:userId',
+				path: 'user/:username',
 				element: <User />,
 				loader: userLoader as any,
 			},

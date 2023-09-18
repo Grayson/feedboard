@@ -10,10 +10,11 @@ export enum LoginState {
 }
 
 export interface User {
+	email: string
+	id: string
+	loginState: LoginState
 	name: string
 	username: string
-	id: number
-	loginState: LoginState
 }
 
 const initialUser = {
@@ -21,13 +22,30 @@ const initialUser = {
 } as User
 
 interface ReducerAction {}
+
 export class UserLoggingInStateChangedAction implements ReducerAction {
 	value: LoginState
 	constructor(value: LoginState) { this.value = value }
 }
-export class UserUsernameChangedAction implements ReducerAction {
-	value: string
-	constructor(value: string) { this.value = value }
+
+interface BasicUserInfoProps {
+	email: string
+	id: string
+	name: string
+	username: string
+}
+
+export class UserInformationChanged implements ReducerAction {
+	email: string
+	id: string
+	name: string
+	username: string
+	constructor({email, id, name, username}: BasicUserInfoProps) {
+		this.email = email
+		this.id = id
+		this.name = name
+		this.username = username
+	}
 }
 
 const [
@@ -69,9 +87,9 @@ export function setUserIsLoggedOut(dispatch: Dispatcher) {
 	}
 }
 
-export function setUserUsername(dispatch: Dispatcher) {
-	return (value: string) => {
-		dispatch(new UserUsernameChangedAction(value))
+export function setUserInformation(dispatch: Dispatcher) {
+	return (props: BasicUserInfoProps) => {
+		dispatch(new UserInformationChanged(props))
 	}
 }
 
@@ -79,8 +97,8 @@ function reducer(state: User, action: ReducerAction): User {
 	if (action instanceof UserLoggingInStateChangedAction) {
 		return { ...state, loginState: action.value }
 	}
-	else if (action instanceof UserUsernameChangedAction) {
-		return { ...state, username: action.value }
+	else if (action instanceof UserInformationChanged) {
+		return { ...state, email: action.email, id: action.id, name: action.name, username: action.username }
 	}
 	return state
 }

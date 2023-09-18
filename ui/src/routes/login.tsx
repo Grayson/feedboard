@@ -54,6 +54,7 @@ function LoggingInMessage() {
 	useEffect(() => {
 		(async () => {
 			const userdata = await dataRepo.authenticateUser({username, password})
+			if (!userdata) return
 			setUserInformation(dispatch)(userdata)
 			setUserIsLoggedIn(dispatch)()
 		})()

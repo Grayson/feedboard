@@ -34,7 +34,7 @@ export default class MockDataRepo implements DataRepo {
 		})
 	}
 	
-	authenticateUser({username, password}: { username: string, password: string }): Promise<UserData> {
+	authenticateUser({username, password}: { username: string, password: string }): Promise<UserData | null> {
 		return new Promise(resolve => {
 			setTimeout(() => resolve(demoUserData), Math.random() * 1000)
 		})

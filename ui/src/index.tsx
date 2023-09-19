@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client'
 import {
-	createHashRouter,
+	createBrowserRouter,
 	RouterProvider
 } from 'react-router-dom';
 
@@ -34,6 +34,6 @@ const routes = [
 	},
 ]
 
-const router = createHashRouter(routes, { basename: '/feedboard' })
+const router = createBrowserRouter(routes, { basename: '/feedboard' })
 const root = createRoot(document.getElementById("app")!)
 root.render(<React.StrictMode><RouterProvider router={router} /></React.StrictMode>)

@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import "./styles.css";
+import 'bootstrap/dist/css/bootstrap'
 import RootPage from './routes/root';
 import Error from './error';
 import Login, { action as loginAction } from './routes/login';

@@ -1,0 +1,31 @@
+header {
+	padding: 4em 2em 1em 2em;
+	border-bottom: 2px solid #000;
+	background: #444;
+}
+
+header a {
+	color: #eee;
+	text-decoration: none;
+}
+
+header a:hover {
+	text-decoration: underline;
+}
+
+
+#sidebar { 
+	padding: 1em 2em;
+}
+
+body a {
+	text-decoration: none;
+}
+
+body a:hover {
+	text-decoration: underline;
+}
+
+main {
+	padding: 1em 0;
+}

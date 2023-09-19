@@ -29,3 +29,11 @@ body a:hover {
 main {
 	padding: 1em 0;
 }
+
+.feed-list .item {
+	margin-bottom: 2em;
+}
+
+.feed-list .item p {
+	margin-bottom: 0em;
+}

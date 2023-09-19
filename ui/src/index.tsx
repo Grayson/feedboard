@@ -13,7 +13,7 @@ import Login, { action as loginAction } from './routes/login';
 import User, { loader as userLoader } from './routes/user';
 import App from './components/app';
 
-const router = createBrowserRouter([
+const routes = [
 	{
 		path: '/',
 		element: <App />,
@@ -32,7 +32,8 @@ const router = createBrowserRouter([
 			},
 		]
 	},
-])
+]
 
+const router = createBrowserRouter(routes, { basename: '/feedboard' })
 const root = createRoot(document.getElementById("app")!)
 root.render(<React.StrictMode><RouterProvider router={router} /></React.StrictMode>)

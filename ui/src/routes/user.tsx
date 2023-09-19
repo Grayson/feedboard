@@ -22,11 +22,22 @@ export default function User() {
 			<h1>{profile.user.name} ({profile.user.username})</h1>
 			<img src={profile.user.picture_url} />
 			
-			<h2>Following feeds</h2>
-			<Feedlist feeds={profile.feeds} />
-
-			<h2>Following</h2>
-			<FriendList friends={profile.following} />
+			{ (profile.feeds || []).length !== 0 && <Feeds feeds={profile.feeds} />}
+			{ (profile.following || []).length !== 0 && <Following users={profile.following} />}
 		</div>
 	)
+}
+
+function Feeds({feeds}: {feeds: Feed[]}) {
+	return <>
+		<h2>Following feeds</h2>
+		<Feedlist feeds={feeds} />
+	</>
+}
+
+function Following({users}: { users: UserData[] }) {
+	return <>
+		<h2>Following</h2>
+		<FriendList friends={users} />
+	</>
 }

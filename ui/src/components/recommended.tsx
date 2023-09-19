@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useDataRepo } from './datarepo'
+import RssIcon from './rss-icon'
 
 export default function Recommended({forUser: username}: {forUser: string}) {
 	const [recommendations, setRecommendations] = useState<UserRecommendation[] | undefined>(undefined)
@@ -34,6 +35,6 @@ function Loading({username, setRecommendations}: LoadingParams) {
 
 export function Recommendation({ recommendation }: {recommendation: UserRecommendation}) {
 	return <p>
-		<a href={recommendation.html}>{recommendation.title}</a> <a href={recommendation.feed}>[Feed]</a>
+		<a href={recommendation.html}>{recommendation.title}</a> <a href={recommendation.feed}><RssIcon /></a>
 	</p>
 }

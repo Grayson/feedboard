@@ -47,7 +47,7 @@ const dave = {
 const demoProfiles: UserProfile[] = [
 	{
 		feeds: [
-			{ description: 'Kottke.org RSS feed', title: 'https://kottke.org', url: 'http://feeds.kottke.org/main', webpage: 'https://kottke.org' },
+			{ description: 'Kottke.org RSS feed', title: 'Kottke.org', url: 'http://feeds.kottke.org/main', webpage: 'https://kottke.org' },
 			{ description: 'Tips, Tricks, and Techniques on using Cascading Style Sheets.', title: 'CSS Tricks', url: 'https://css-tricks.com/feed', webpage: 'https://css-tricks.com' },
 			{ description: 'Eric Lippert&#039;s blog', title: 'Fabulous adventures in coding', url: 'https://ericlippert.com/feed/', webpage: 'https://ericlippert.com' },
 		],

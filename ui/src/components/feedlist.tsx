@@ -1,4 +1,5 @@
 import * as React from 'react'
+import RssIcon from './rss-icon'
 
 export default function Feedlist({feeds}: {feeds: Feed[]}) {
 	return <div className='feed-list'>
@@ -8,8 +9,7 @@ export default function Feedlist({feeds}: {feeds: Feed[]}) {
 
 export function FeedItem({feed}: {feed: Feed}) {
 	return <div className='item'>
-			<h3><a href={feed.url}>{feed.title}</a></h3>
+			<p><a href={feed.url}><RssIcon /></a> <a href={feed.url}>{feed.title}</a></p>
 			<p>{feed.description}</p>
-			<p><a href={feed.url}>[Feed]</a></p>
 		</div>
 }
